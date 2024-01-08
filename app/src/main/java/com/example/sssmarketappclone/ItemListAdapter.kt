@@ -1,5 +1,6 @@
 package com.example.sssmarketappclone
 
+import android.icu.text.DecimalFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ class ItemListAdapter(private val itemlist:ArrayList<Items>):RecyclerView.Adapte
         val price = binding.tvPrice
         val chat = binding.tvChatCount
         val like = binding.tvLikedCount
+        var seller = ""
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListAdapter.ViewHolder {
@@ -25,11 +27,11 @@ class ItemListAdapter(private val itemlist:ArrayList<Items>):RecyclerView.Adapte
             img.setImageResource(itemlist[position].image)
             title.text = itemlist[position].title
             addr.text = itemlist[position].address
-            price.text = itemlist[position].price.toString()
+            price.text = DecimalFormat("#,###").format(itemlist[position].price)
             chat.text = itemlist[position].chat.toString()
             like.text = itemlist[position].like.toString()
         }
-//        seller.text = itemlist[position].seller
+        holder.seller = itemlist[position].seller   // 아무튼 seller 가 존재함
     }
 
     override fun getItemCount(): Int = itemlist.size

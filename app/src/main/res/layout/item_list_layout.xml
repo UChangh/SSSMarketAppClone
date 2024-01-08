@@ -25,7 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="@string/text_sample"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/itemImage"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +35,8 @@
         android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/text_sample"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/tvTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -41,7 +44,9 @@
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/text_sample"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tvAddress"
         app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
@@ -51,7 +56,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:drawablePadding="2dp"
+        android:text="@string/text_sample"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/chat_resize_01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvLikedCount" />
 
@@ -60,7 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:text="@string/text_sample"
+        android:textSize="14sp"
+        app:drawableStartCompat="@drawable/heart_empty_resize_01"
         app:layout_constraintBottom_toBottomOf="@+id/tvChatCount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvChatCount" />
