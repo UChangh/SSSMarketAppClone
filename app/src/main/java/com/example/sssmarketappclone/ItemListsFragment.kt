@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sssmarketappclone.ItemDatas.itemDataLists
 import com.example.sssmarketappclone.databinding.FragmentItemListsBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -19,8 +21,10 @@ class ItemListsFragment : Fragment() {
     private var listener: Like? = null
 
     private lateinit var mainActivity: MainActivity
+    private lateinit var itemDataList: ItemDatas
 
-    private val binding by lazy { FragmentItemListsBinding.inflate(layoutInflater) }
+    private var _binding:FragmentItemListsBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +48,15 @@ class ItemListsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        _binding = FragmentItemListsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.recyclerView.adapter = ItemListAdapter(mainActivity.itemDataLists())
+        binding.recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         spinner()
     }
 
@@ -73,6 +81,7 @@ class ItemListsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
+        _binding = null
+        listener = null
     }
 }

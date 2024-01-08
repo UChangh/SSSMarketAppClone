@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.SSSMarketAppClone" parent="Base.Theme.SSSMarketAppClone" />
+
+    <style name="RoundCorner" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20%</item>
+    </style>
 </resources>
