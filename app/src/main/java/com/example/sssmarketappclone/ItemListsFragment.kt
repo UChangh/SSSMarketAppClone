@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sssmarketappclone.ItemDatas.itemDataLists
 import com.example.sssmarketappclone.databinding.FragmentItemListsBinding
@@ -21,7 +23,6 @@ class ItemListsFragment : Fragment() {
     private var listener: Like? = null
 
     private lateinit var mainActivity: MainActivity
-    private lateinit var itemDataList: ItemDatas
 
     private var _binding:FragmentItemListsBinding? = null
     private val binding get() = _binding!!
@@ -55,11 +56,15 @@ class ItemListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.adapter = ItemListAdapter(mainActivity.itemDataLists())
-        binding.recyclerView.layoutManager = LinearLayoutManager(mainActivity)
+        binding.recyclerView.apply {
+            adapter = ItemListAdapter(mainActivity.itemDataLists())
+            layoutManager = LinearLayoutManager(mainActivity)
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(mainActivity, LinearLayout.VERTICAL))
+        }
+
         spinner()
     }
-
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
