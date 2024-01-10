@@ -1,5 +1,5 @@
 package com.example.sssmarketappclone
 
 interface Like {
-    fun liked()
+    fun liked(n:Int):Int
 }

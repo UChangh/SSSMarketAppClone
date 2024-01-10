@@ -15,6 +15,7 @@ object ItemDatas {
         val listLike = resources.getStringArray(R.array.itemLiked)
         val listChat = resources.getStringArray(R.array.itemChat)
         val listSeller = resources.getStringArray(R.array.itemSeller)
+        val listDetail = resources.getStringArray(R.array.itemDetails)
 
         for(i in listTitle.indices) {
             dataset.add(
@@ -25,7 +26,8 @@ object ItemDatas {
                     listPrice[i].toInt(),
                     listLike[i].toInt(),
                     listChat[i].toInt(),
-                    listSeller[i]
+                    listSeller[i],
+                    listDetail[i]
                 )
             )
         }

@@ -20,13 +20,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sssmarketappclone.ItemDatas.itemDataLists
 import com.example.sssmarketappclone.databinding.FragmentItemListsBinding
+import kotlin.random.Random
+
 
 private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class ItemListsFragment : Fragment() {
     private var param1: String? = null
-    private var param2: String? = null
 
     private var listener: Like? = null
 
@@ -42,7 +42,6 @@ class ItemListsFragment : Fragment() {
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -64,11 +63,31 @@ class ItemListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val itemlist = mainActivity.itemDataLists()
+        val adapter = ItemListAdapter(itemlist)
+
         binding.recyclerView.apply {
-            adapter = ItemListAdapter(mainActivity.itemDataLists())
+            this.adapter = adapter
             layoutManager = LinearLayoutManager(mainActivity)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(mainActivity, LinearLayout.VERTICAL))
+        }
+
+        adapter.itemClicked = object : ItemClick {
+            override fun onClick(v: View, n: Int) {
+                val items = ItemBox(
+                    itemlist[n].image,
+                    itemlist[n].title,
+                    itemlist[n].address,
+                    itemlist[n].price,
+                    itemlist[n].like,
+                    itemlist[n].seller,
+                    itemlist[n].detail
+                )
+                JustRandom.randomObject = Random.nextInt(1000)
+                val fragment = ItemDetailFragment.newInstance(items)
+                setFragment(fragment)
+            }
         }
 
         binding.imageButton.setOnClickListener{
@@ -77,15 +96,16 @@ class ItemListsFragment : Fragment() {
 
         spinner()
     }
+
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String) =
             ItemListsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
                 }
             }
+
     }
 
     private fun spinner() {
@@ -136,9 +156,17 @@ class ItemListsFragment : Fragment() {
         manager.notify(16,builder.build())
     }
 
+    fun setFragment(f:Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frameItemLists,f)
+            .addToBackStack("")
+            .commit()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         listener = null
     }
+
+
 }

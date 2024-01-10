@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.sssmarketappclone.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), Like {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), Like {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragment = ItemListsFragment.newInstance("","")
+        val fragment = ItemListsFragment.newInstance("")
         setFragment(fragment)
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
@@ -29,10 +29,6 @@ class MainActivity : AppCompatActivity(), Like {
             setReorderingAllowed(true)
             addToBackStack("")
         }
-    }
-
-    override fun liked() {
-
     }
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {

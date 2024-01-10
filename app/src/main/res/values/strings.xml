@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CarrotMarket</string>
     <string name="text_sample">TextView</string>
+    <string name="description">Description</string>
+    <string name="btn_chatting">채팅하기</string>
+    <string name="manner">매너온도</string>
 </resources>

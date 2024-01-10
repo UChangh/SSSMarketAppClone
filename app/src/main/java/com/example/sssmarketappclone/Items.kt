@@ -7,5 +7,6 @@ data class Items(
     val price: Int,
     val like: Int,
     val chat: Int,
-    val seller: String
+    val seller: String,
+    val detail: String
 )
