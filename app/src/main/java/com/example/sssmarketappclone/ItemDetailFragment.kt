@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sssmarketappclone.databinding.FragmentItemDetailBinding
@@ -47,15 +48,23 @@ class ItemDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.detailRV.apply {
-            adapter = ItemDetailAdapter(param1!!)
-            layoutManager = LinearLayoutManager(mainActivity)
-        }
-        binding.imageButton2.apply {
-            bringToFront()
-            setOnClickListener {
-                val fragment = ItemListsFragment.newInstance("")
-                setFragment(fragment)
+
+        with(binding) {
+            tvMoney.text = "${param1?.price}"
+            btnChat.setOnClickListener {
+                toast("이 기능은 아직 사용하실 수 없습니다 ^^")
+            }
+            detailRV.apply {
+                adapter = ItemDetailAdapter(param1!!)
+                layoutManager = LinearLayoutManager(mainActivity)
+            }
+
+            imageButton2.apply {
+                bringToFront()
+                setOnClickListener {
+                    val fragment = ItemListsFragment.newInstance("")
+                    setFragment(fragment)
+                }
             }
         }
     }
@@ -83,5 +92,9 @@ class ItemDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         listener = null
+    }
+
+    fun toast(s:String) {
+        Toast.makeText(mainActivity,s,Toast.LENGTH_SHORT).show()
     }
 }
