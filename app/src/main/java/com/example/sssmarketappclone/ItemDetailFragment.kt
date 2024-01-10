@@ -1,6 +1,7 @@
 package com.example.sssmarketappclone
 
 import android.content.Context
+import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +51,7 @@ class ItemDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            tvMoney.text = "${param1?.price}"
+            tvMoney.text = DecimalFormat("#,###").format(param1?.price)
             btnChat.setOnClickListener {
                 toast("이 기능은 아직 사용하실 수 없습니다 ^^")
             }
