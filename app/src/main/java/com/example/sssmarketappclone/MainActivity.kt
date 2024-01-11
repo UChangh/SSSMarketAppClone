@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private fun setFragment(f: Fragment) {
         supportFragmentManager.commit {
             replace(R.id.frameItemLists, f)
-            setReorderingAllowed(true)
+            setReorderingAllowed(true)  
             addToBackStack("")
         }
     }
