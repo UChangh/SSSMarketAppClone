@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sssmarketappclone.databinding.ItemDetailLayoutBinding
 
-class ItemDetailAdapter(private val itemlist:ItemBox):RecyclerView.Adapter<ItemDetailAdapter.Holder>() {
+class ItemDetailAdapter(private val itemlist:Items):RecyclerView.Adapter<ItemDetailAdapter.Holder>() {
     inner class Holder(binding: ItemDetailLayoutBinding): RecyclerView.ViewHolder(binding.root) {
         val image = binding.imageView
         val user = binding.tvUserName
@@ -28,7 +28,7 @@ class ItemDetailAdapter(private val itemlist:ItemBox):RecyclerView.Adapter<ItemD
             user.text = itemlist.seller
             addr.text = itemlist.address
             name.text = itemlist.title
-            detail.text = itemlist.details
+            detail.text = itemlist.detail
             percent.text = "${JustRandom.randomObject.toFloat()/10} `C"
             funny.setImageResource(JustRandom().randomfunc(JustRandom.randomObject))
         }

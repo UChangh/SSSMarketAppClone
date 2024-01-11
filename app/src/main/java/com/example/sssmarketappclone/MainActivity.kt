@@ -10,6 +10,7 @@ import androidx.fragment.app.commit
 import com.example.sssmarketappclone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private fun setFragment(f: Fragment) {
         supportFragmentManager.commit {
             replace(R.id.frameItemLists, f)
-            setReorderingAllowed(true)  
+            setReorderingAllowed(true)
             addToBackStack("")
         }
     }

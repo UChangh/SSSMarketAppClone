@@ -25,9 +25,10 @@ object ItemDatas {
                     listAddress[i],
                     listPrice[i].toInt(),
                     listLike[i].toInt(),
-                    listChat[i].toInt(),
                     listSeller[i],
-                    listDetail[i]
+                    listDetail[i],
+                    listChat[i].toInt(),
+                    false
                 )
             )
         }

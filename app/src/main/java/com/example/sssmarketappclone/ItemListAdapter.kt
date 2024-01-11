@@ -35,9 +35,9 @@ class ItemListAdapter(private val itemlist:ArrayList<Items>):RecyclerView.Adapte
             item.setOnClickListener {
                 itemClicked?.onClick(it, position)
             }
-            item.setOnLongClickListener {
+            item.setOnLongClickListener() OnLongClickListener@ {
                 itemLongClicked?.onLongClick(it,position)
-                true
+                return@OnLongClickListener true
             }
             chat.text = itemlist[position].chat.toString()
             seller = itemlist[position].seller
@@ -48,5 +48,5 @@ class ItemListAdapter(private val itemlist:ArrayList<Items>):RecyclerView.Adapte
     override fun getItemCount(): Int = itemlist.size
 
     var itemClicked: ItemClick? = null
-    var itemLongClicked: ItemClick? = null
+    var itemLongClicked: ItemLongClick? = null
 }

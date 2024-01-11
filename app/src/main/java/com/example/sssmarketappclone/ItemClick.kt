@@ -4,5 +4,8 @@ import android.view.View
 
 interface ItemClick {
     fun onClick(v: View, n: Int)
+}
+
+interface ItemLongClick {
     fun onLongClick(v: View, n: Int)
 }

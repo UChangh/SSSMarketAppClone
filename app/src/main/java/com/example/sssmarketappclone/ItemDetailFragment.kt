@@ -16,7 +16,7 @@ private const val PARAM_ITEM = "itemData"
 
 
 class ItemDetailFragment : Fragment() {
-    private var param1: ItemBox? = null
+    private var param1: Items? = null
 
     private var listener: Like? = null
 
@@ -72,7 +72,7 @@ class ItemDetailFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: ItemBox) =
+        fun newInstance(param1: Items) =
             ItemDetailFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PARAM_ITEM,param1)

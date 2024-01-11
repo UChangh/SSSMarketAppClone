@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.DialogInterface
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -81,22 +80,39 @@ class ItemListsFragment : Fragment() {
 
         adapter.itemClicked = object : ItemClick {
             override fun onClick(v: View, n: Int) {
-                val items = ItemBox(
+                val items = Items(
                     itemlist[n].image,
                     itemlist[n].title,
                     itemlist[n].address,
                     itemlist[n].price,
                     itemlist[n].like,
                     itemlist[n].seller,
-                    itemlist[n].detail
+                    itemlist[n].detail,
+                    itemlist[n].chat,
+                    false
                 )
                 JustRandom.randomObject = Random.nextInt(1000)
                 val fragment = ItemDetailFragment.newInstance(items)
                 setFragment(fragment)
             }
+        }
 
+        adapter.itemLongClicked = object : ItemLongClick {
             override fun onLongClick(v: View, n: Int) {
-                setDialog(itemlist[n])
+                val dialog = AlertDialog.Builder(mainActivity)
+                    .setTitle("상품 삭제")
+                    .setMessage("상품을 정말로 삭제하시겠습니까?")
+                    .setIcon(R.drawable.chat_resize_01)
+
+                dialog.setPositiveButton("확인") { dialog, _ ->
+                    itemlist.remove(itemlist[n])
+//                    adapter.notifyItemChanged(n)
+                    adapter.notifyItemRemoved(n)
+                }
+                dialog.setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                dialog.show()
             }
         }
 
@@ -173,21 +189,6 @@ class ItemListsFragment : Fragment() {
             .commit()
     }
 
-    fun setDialog(item:Items) {
-        val dialog = AlertDialog.Builder(mainActivity)
-            .setTitle("상품 삭제")
-            .setMessage("상품을 정말로 삭제하시겠습니까?")
-            .setIcon(R.drawable.chat_resize_01)
-
-        val dialogListener = DialogInterface.OnClickListener { _, which ->
-            if(which == DialogInterface.BUTTON_POSITIVE) {
-                mainActivity.itemDataLists().remove(item)
-            }
-        }
-        dialog.setPositiveButton("확인",dialogListener)
-        dialog.setNegativeButton("취소",dialogListener)
-        dialog.show()
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
