@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.DialogInterface
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -66,6 +68,10 @@ class ItemListsFragment : Fragment() {
         val itemlist = mainActivity.itemDataLists()
         val adapter = ItemListAdapter(itemlist)
 
+        binding.btnGoTop.setOnClickListener{
+            binding.recyclerView.scrollToPosition(0)
+        }
+
         binding.recyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(mainActivity)
@@ -87,6 +93,10 @@ class ItemListsFragment : Fragment() {
                 JustRandom.randomObject = Random.nextInt(1000)
                 val fragment = ItemDetailFragment.newInstance(items)
                 setFragment(fragment)
+            }
+
+            override fun onLongClick(v: View, n: Int) {
+                setDialog(itemlist[n])
             }
         }
 
@@ -162,11 +172,25 @@ class ItemListsFragment : Fragment() {
             .addToBackStack("")
             .commit()
     }
+
+    fun setDialog(item:Items) {
+        val dialog = AlertDialog.Builder(mainActivity)
+            .setTitle("상품 삭제")
+            .setMessage("상품을 정말로 삭제하시겠습니까?")
+            .setIcon(R.drawable.chat_resize_01)
+
+        val dialogListener = DialogInterface.OnClickListener { _, which ->
+            if(which == DialogInterface.BUTTON_POSITIVE) {
+                mainActivity.itemDataLists().remove(item)
+            }
+        }
+        dialog.setPositiveButton("확인",dialogListener)
+        dialog.setNegativeButton("취소",dialogListener)
+        dialog.show()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         listener = null
     }
-
-
 }
