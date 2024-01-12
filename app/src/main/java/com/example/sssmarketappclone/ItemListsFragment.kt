@@ -3,7 +3,6 @@ package com.example.sssmarketappclone
 import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
@@ -29,8 +28,6 @@ private const val ARG_PARAM1 = "param1"
 class ItemListsFragment : Fragment() {
     private var param1: String? = null
 
-    private var listener: Like? = null
-
     private lateinit var mainActivity: MainActivity
 
     private var _binding:FragmentItemListsBinding? = null
@@ -44,13 +41,6 @@ class ItemListsFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if(context is Like)
-            listener = context
-
     }
 
     override fun onCreateView(
@@ -92,7 +82,7 @@ class ItemListsFragment : Fragment() {
                     false
                 )
                 JustRandom.randomObject = Random.nextInt(1000)
-                val fragment = ItemDetailFragment.newInstance(items)
+                val fragment = ItemDetailFragment.newInstance(items, n)
                 setFragment(fragment)
             }
         }
@@ -128,6 +118,14 @@ class ItemListsFragment : Fragment() {
             ItemListsFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
+                }
+            }
+
+        @JvmStatic
+        fun likePressed(p1:Boolean) =
+            ItemListsFragment().apply {
+                arguments = Bundle().apply {
+                    putBoolean(ARG_PARAM1, p1)
                 }
             }
 
@@ -191,6 +189,5 @@ class ItemListsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        listener = null
     }
 }

@@ -11,5 +11,5 @@ interface ItemLongClick {
 }
 
 interface Like {
-    fun liked(n:Int):Int
+    fun liked(n:Int)
 }

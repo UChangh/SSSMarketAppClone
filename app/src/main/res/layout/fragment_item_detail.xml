@@ -47,12 +47,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/heart_empty_resize_01"
             android:contentDescription="@string/description"
+            android:src="@drawable/heart_empty_resize_01"
             app:layout_constraintBottom_toBottomOf="@+id/tvMoney"
             app:layout_constraintEnd_toStartOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvMoney" />
+            app:layout_constraintTop_toTopOf="@+id/tvMoney"
+            app:srcCompat="@drawable/heart_empty_resize_01" />
 
         <View
             android:id="@+id/view"
