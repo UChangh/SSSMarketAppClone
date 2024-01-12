@@ -18,15 +18,18 @@ import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sssmarketappclone.ItemDatas.itemDataLists
 import com.example.sssmarketappclone.databinding.FragmentItemListsBinding
 import kotlin.random.Random
 
 
 private const val ARG_PARAM1 = "param1"
+private const val ITEM_POS = "itemPos"
 
 class ItemListsFragment : Fragment() {
-    private var param1: String? = null
+    private var param1: Items? = null
+    private var pos:Int? = null
 
     private lateinit var mainActivity: MainActivity
 
@@ -39,7 +42,8 @@ class ItemListsFragment : Fragment() {
         mainActivity = context as MainActivity
 
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getParcelable(ARG_PARAM1)
+            pos = it.getInt(ITEM_POS)
         }
     }
 
@@ -57,15 +61,31 @@ class ItemListsFragment : Fragment() {
         val itemlist = mainActivity.itemDataLists()
         val adapter = ItemListAdapter(itemlist)
 
-        binding.btnGoTop.setOnClickListener{
-            binding.recyclerView.scrollToPosition(0)
-        }
-
         binding.recyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(mainActivity)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(mainActivity, LinearLayout.VERTICAL))
+
+            var isTop = false
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if(!binding.recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        binding.btnGoTop.visibility = View.GONE
+                        isTop = true
+                    } else {
+                        if(isTop) {
+                            binding.btnGoTop.visibility = View.VISIBLE
+                            isTop = false
+                        }
+                    }
+                }
+            })
+        }
+
+        binding.btnGoTop.setOnClickListener{
+            binding.recyclerView.smoothScrollToPosition(0)
         }
 
         adapter.itemClicked = object : ItemClick {
@@ -114,21 +134,13 @@ class ItemListsFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(param1: Items?, pos:Int) =
             ItemListsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
+                    putParcelable(ARG_PARAM1, param1)
+                    putInt(ITEM_POS, pos)
                 }
             }
-
-        @JvmStatic
-        fun likePressed(p1:Boolean) =
-            ItemListsFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean(ARG_PARAM1, p1)
-                }
-            }
-
     }
 
     private fun spinner() {

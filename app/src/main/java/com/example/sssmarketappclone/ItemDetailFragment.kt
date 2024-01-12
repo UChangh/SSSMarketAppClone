@@ -59,6 +59,7 @@ class ItemDetailFragment : Fragment() {
                         param1!!.like -= 1
                     }
                 }
+                toast("${param1!!.like}")
                 ItemListAdapter(mainActivity.itemDataLists()).notifyItemChanged(paramPos)
             }
 
@@ -76,8 +77,9 @@ class ItemDetailFragment : Fragment() {
             imageButton2.apply {
                 bringToFront()
                 setOnClickListener {
-                    val fragment = ItemListsFragment.newInstance("")
+                    val fragment = ItemListsFragment.newInstance(param1!!, paramPos)
                     setFragment(fragment)
+                    toast("${param1!!.like}")
                 }
             }
         }
@@ -96,7 +98,7 @@ class ItemDetailFragment : Fragment() {
 
     private fun setFragment(f:Fragment) {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frameItemLists, f)
+            .replace(R.id.frameItemLists,f)
             .addToBackStack(null)
             .commit()
     }

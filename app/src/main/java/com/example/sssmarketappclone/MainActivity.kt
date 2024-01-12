@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val fragment = ItemListsFragment.newInstance("")
+        val fragment = ItemListsFragment.newInstance(null, 0)
         setFragment(fragment)
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
