@@ -1,6 +1,5 @@
 package com.example.sssmarketappclone
 
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -39,12 +38,12 @@ class MainActivity : AppCompatActivity() {
                 .setMessage("정말 종료하시겠습니까?")
                 .setIcon(R.drawable.bell_resize_01)
 
-            val listener = DialogInterface.OnClickListener { _, which ->
-                if(which == DialogInterface.BUTTON_POSITIVE) finish()
+            dialog.setPositiveButton("확인") { dialog, _ ->
+                if(!isFinishing) finish()
             }
-
-            dialog.setPositiveButton("확인",listener)
-            dialog.setNegativeButton("취소",listener)
+            dialog.setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss()
+            }
             dialog.show()
         }
     }

@@ -9,3 +9,7 @@ interface ItemClick {
 interface ItemLongClick {
     fun onLongClick(v: View, n: Int)
 }
+
+interface Like {
+    fun liked(n:Int):Int
+}

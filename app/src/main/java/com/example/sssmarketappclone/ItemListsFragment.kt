@@ -106,7 +106,6 @@ class ItemListsFragment : Fragment() {
 
                 dialog.setPositiveButton("확인") { dialog, _ ->
                     itemlist.remove(itemlist[n])
-//                    adapter.notifyItemChanged(n)
                     adapter.notifyItemRemoved(n)
                 }
                 dialog.setNegativeButton("취소") { dialog, _ ->

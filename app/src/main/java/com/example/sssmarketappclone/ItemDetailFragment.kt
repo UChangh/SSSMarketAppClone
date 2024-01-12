@@ -17,7 +17,7 @@ private const val PARAM_ITEM = "itemData"
 
 class ItemDetailFragment : Fragment() {
     private var param1: Items? = null
-
+    private var like: Boolean = false
     private var listener: Like? = null
 
     private var _binding:FragmentItemDetailBinding? = null
@@ -86,7 +86,6 @@ class ItemDetailFragment : Fragment() {
             .replace(R.id.frameItemLists, f)
             .addToBackStack(null)
             .commit()
-
     }
 
     override fun onDestroyView() {
